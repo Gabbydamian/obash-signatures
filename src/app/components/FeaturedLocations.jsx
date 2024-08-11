@@ -7,7 +7,7 @@ const FeaturedLocations = () => {
       <div className="container mx-auto flex gap-4 py-12">
         <Link
           href="/listings"
-          className="filter grayscale-[0.5] no-underline hover:filter-none transition-all duration-300 ease-in-out"
+          className="filter grayscale-[0.5] hover:no-underline hover:scale-[.99] border rounded-md border-gray-200 hover:filter-none transition-all duration-300 ease-in-out"
         >
           <Card maxW="xs">
             <CardBody>
@@ -17,7 +17,7 @@ const FeaturedLocations = () => {
                 borderRadius="lg"
               />
               <Stack direction="row" mt={3}>
-                <h2 className="font-bold text-2xl text-center mx-auto no-underline">
+                <h2 className="font-bold text-2xl text-center mx-auto ">
                   Find Homes in London
                 </h2>
               </Stack>
@@ -26,7 +26,7 @@ const FeaturedLocations = () => {
         </Link>
         <Link
           href="/listings"
-          className="filter grayscale-[0.5] no-underline hover:filter-none transition-all duration-300 ease-in-out"
+          className="filter grayscale-[0.5] hover:no-underline hover:scale-[.99] border rounded-md border-gray-200 hover:filter-none transition-all duration-300 ease-in-out"
         >
           <Card maxW="xs">
             <CardBody>
@@ -45,7 +45,7 @@ const FeaturedLocations = () => {
         </Link>
         <Link
           href="/listings"
-          className="filter grayscale-[0.5] no-underline hover:filter-none transition-all duration-300 ease-in-out"
+          className="filter grayscale-[0.5] hover:no-underline hover:scale-[.99] border rounded-md border-gray-200 hover:filter-none transition-all duration-300 ease-in-out"
         >
           <Card maxW="xs">
             <CardBody>
