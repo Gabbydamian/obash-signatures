@@ -18,12 +18,37 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+h2>span {
+  font-family: var(--font-barlow-condensed);
+}
+
+p,
+span,
+a,
+div {
+  font-family: var(--font-montserrat);
+}
+
+main {
+  background-image: url("/banner.webp");
+  background-size: cover;
+  background-position-y: -30px;
+  /* background-position: center; */
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: rgb(var(--background-start-rgb));
+}
+
+.highlight {
+  background: url(//s2.svgbox.net/pen-brushes.svg?ic=brush-1&color=d6d653af);
 }
 
 @layer utilities {
