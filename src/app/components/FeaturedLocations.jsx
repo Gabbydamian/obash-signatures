@@ -4,7 +4,7 @@ import { Link } from "@chakra-ui/react";
 const FeaturedLocations = () => {
   return (
     <div className="">
-      <div className="container mx-auto flex gap-4 py-12">
+      <div className="container mx-auto flex flex-col items-center gap-8 md:flex-row md:gap-4 py-12">
         <Link
           href="/listings"
           className="filter grayscale-[0.5] hover:no-underline hover:scale-[.99] border rounded-md border-gray-200 hover:filter-none transition-all duration-300 ease-in-out"

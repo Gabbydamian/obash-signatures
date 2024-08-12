@@ -21,7 +21,7 @@ const Newsletter = () => {
         </p>
         <FormControl
           id="email"
-          className="w-4/5 mx-auto flex items-center gap-4 mt-6"
+          className="w-4/5 mx-auto flex flex-col md:flex-row items-center gap-4 mt-6"
         >
           {/* <FormLabel className="absolute left-[99999px]"> Full Name</FormLabel> */}
           <Input
