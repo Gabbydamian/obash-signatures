@@ -30,19 +30,25 @@ const Nav = () => {
 
   return (
     <>
-      <nav className="sticky top-0 z-10 py-8 px-2 md:px-0 min-h-24 backdrop-blur-sm shadow-sm uppercase font-[500]">
+      <nav className="sticky top-0 z-10 py-8 px-6 md:px-12 min-h-24 backdrop-blur-sm shadow-sm uppercase font-[500]">
         <div className="container mx-auto flex items-center justify-between">
           <Link href="/">
             <Image
               src="/logo.svg"
               alt="logo"
+              width={150}
+              className={`${logoClasses} block md:hidden`}
+            />
+            <Image
+              src="/logo.svg"
+              alt="logo"
               width={200}
-              className={logoClasses}
+              className={`${logoClasses} hidden md:block`}
             />
           </Link>
           {/* Hamburger Icon for Mobile */}
           <IconButton
-            display={{ base: "block", md: "none" }}
+            display={{ base: "block", lg: "none" }}
             onClick={toggleMenu}
             icon={isMenuOpen ? <XMarkIcon /> : <Bars3Icon />}
             variant="ghost"
@@ -54,7 +60,7 @@ const Nav = () => {
           <ul
             className={`${
               isMenuOpen ? "flex" : "hidden"
-            } flex-col md:flex-row md:flex items-center space-y-6 md:space-y-0 md:space-x-12 absolute md:static left-0 top-full bg-white md:bg-transparent w-full md:w-auto z-10 md:z-auto md:py-0 py-4`}
+            } flex-col lg:flex-row lg:flex items-center space-y-10 lg:space-y-0 lg:space-x-12 absolute lg:static left-0 top-full bg-white lg:bg-transparent w-full lg:w-auto z-10 lg:z-auto lg:py-0 py-8`}
           >
             <li>
               <Link href="/rent" className={linkClasses}>
@@ -78,7 +84,7 @@ const Nav = () => {
           </ul>
           <Link
             href="tel:8012345678"
-            className={`${linkClasses} hidden md:block`}
+            className={`${linkClasses} hidden lg:block`}
           >
             (805) 233-1232
           </Link>

@@ -4,8 +4,10 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 const Main = () => {
   return (
-    <div className="container mx-auto px-4 md:px-0 flex flex-col">
-      <h1 className="text-5xl md:text-6xl font-[700] mt-24 md:mt-36">Find Your Dream Home</h1>
+    <div className="container mx-auto px-6 flex flex-col">
+      <h1 className="text-5xl md:text-6xl font-[700] mt-24 md:mt-36">
+        Find Your Dream Home
+      </h1>
       <p className="text-md md:text-xl mt-2 font-[500]">
         Explore our listings to discover{" "}
         <span className="highlight">homes that fit your needs.</span>

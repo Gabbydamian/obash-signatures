@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 export default function Home() {
   return (
     <>
-      <main className="flex min-h-[90vh] flex-col">
+      <main className="flex min-h-[65vh] md:min-h-[70vh] lg:min-h-[90vh] flex-col">
         <Nav />
         <Main />
       </main>
