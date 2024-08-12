@@ -3,6 +3,9 @@ import Nav from "./components/Nav";
 import Main from "./components/Main";
 import FeaturedLocations from "./components/FeaturedLocations";
 import FeaturesListings from "./components/FeaturesListings";
+import Newsletter from "./components/Newsletter";
+import Footer from "./components/Footer";
+
 export default function Home() {
   return (
     <>
@@ -12,6 +15,8 @@ export default function Home() {
       </main>
       <FeaturedLocations />
       <FeaturesListings />
+      <Newsletter />
+      <Footer />
     </>
   );
 }

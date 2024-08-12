@@ -10,7 +10,7 @@ const montserrat = Montserrat({
 const barlowCondensed = Barlow_Condensed({
   subsets: ["latin"],
   variable: "--font-barlow-condensed",
-  weight: ["500", "700", "800"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const fonts = {

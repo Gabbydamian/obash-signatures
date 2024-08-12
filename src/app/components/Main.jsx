@@ -11,7 +11,7 @@ const Main = () => {
         <span className="highlight">homes that fit your needs.</span>
       </p>
       <InputGroup className="flex items-center mt-6">
-        <InputLeftElement pointerEvents="none" className="py-8">
+        <InputLeftElement pointerEvents="none" className="py-8 mt-1">
           <MagnifyingGlassIcon className="size-6" />
         </InputLeftElement>
         <Input
