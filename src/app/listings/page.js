@@ -1,12 +1,14 @@
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import { listings } from "./listings";
+import Listings from "./Listings";
+import { data } from "./data";
 
-export default function Listings() {
+export default function Main() {
   return (
     <>
       {}
       <Nav />
+      <Listings data={data} />
       <Footer />
     </>
   );

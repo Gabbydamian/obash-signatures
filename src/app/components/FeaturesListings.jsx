@@ -2,46 +2,10 @@
 import { useState } from "react";
 import { Image, Link } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import { data } from "../listings/data";
 
 const Carousel = () => {
-  // const images = [
-  //   "https://images.unsplash.com/photo-1605146768851-eda79da39897?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  //   "https://plus.unsplash.com/premium_photo-1694475043212-449032bdd54c?q=80&w=1458&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  //   "https://images.unsplash.com/photo-1472224371017-08207f84aaae?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  // ];
-
-  const listings = [
-    {
-      address: "1234 Main Street",
-      zipCode: "12345",
-      price: "£1,200,000",
-      city: "New Hampshire",
-      details: "3 Beds | 2 Baths | 1,500 sqft",
-      images: [
-        "https://images.unsplash.com/photo-1605146768851-eda79da39897?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      ],
-    },
-    {
-      address: "5678 Elm Street",
-      zipCode: "67890",
-      price: "£1,500,000",
-      city: "Berkshire",
-      details: "4 Beds | 3 Baths | 2,000 sqft",
-      images: [
-        "https://plus.unsplash.com/premium_photo-1694475043212-449032bdd54c?q=80&w=1458&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      ],
-    },
-    {
-      address: "9101 Oak Street",
-      zipCode: "23456",
-      price: "£1,800,000",
-      city: "Swansea",
-      details: "5 Beds | 4 Baths | 2,500 sqft",
-      images: [
-        "https://images.unsplash.com/photo-1472224371017-08207f84aaae?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      ],
-    },
-  ];
+  const listings = data.slice(0, 3);
 
   const [currentListing, setCurrentListing] = useState(0);
 
@@ -71,7 +35,9 @@ const Carousel = () => {
           <p className="text-lg font-[300] md:text-xl md:font-[400]">
             {listings[currentListing].details}
           </p>
-          <h4 className="text-2xl mt-1 md:text-3xl md:mt-4">{listings[currentListing].price}</h4>
+          <h4 className="text-2xl mt-1 md:text-3xl md:mt-4">
+            {listings[currentListing].price}
+          </h4>
         </div>
       </Link>
       <div className="controls flex justify-between">

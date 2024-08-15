@@ -63,13 +63,8 @@ const Nav = () => {
             } flex-col lg:flex-row lg:flex items-center space-y-10 lg:space-y-0 lg:space-x-12 absolute lg:static left-0 top-full bg-white lg:bg-transparent w-full lg:w-auto z-10 lg:z-auto lg:py-0 py-8`}
           >
             <li>
-              <Link href="/rent" className={linkClasses}>
-                For Rent
-              </Link>
-            </li>
-            <li>
-              <Link href="/sale" className={linkClasses}>
-                For Sale
+              <Link href="/listings" className={linkClasses}>
+                Properties
               </Link>
             </li>
             <li>

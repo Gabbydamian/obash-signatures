@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  Input,
-  Button,
-  Checkbox,
-  Link,
-} from "@chakra-ui/react";
+import { FormControl, Input, Button, Checkbox, Link } from "@chakra-ui/react";
 
 const Newsletter = () => {
   return (

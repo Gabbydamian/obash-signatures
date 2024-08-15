@@ -1,89 +1,132 @@
-import { useState } from "react";
-import { Link, Image } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
+  Button,
+  Link,
+  Box,
+  VStack,
+  HStack,
+  IconButton,
+  Heading,
+  Icon,
+  Text,
+} from "@chakra-ui/react";
+import {
+  XMarkIcon,
+  EnvelopeIcon,
+  PhoneIcon,
+  MapIcon,
+} from "@heroicons/react/24/outline";
+import { fonts } from "../font";
+
+const ContactDetail = ({ icon, label, value, link }) => (
+  <HStack alignItems="start" gap={2}>
+    <Icon as={icon} w={8} h={8} />
+    <VStack alignItems="start" spacing={1}>
+      <FormLabel className="text-lg uppercase">{label}</FormLabel>
+      {link ? (
+        <Link href={link} className="underline uppercase">
+          {value}
+        </Link>
+      ) : (
+        <Text>{value}</Text>
+      )}
+    </VStack>
+  </HStack>
+);
+
+const ContactFormInput = ({ id, label, type }) => (
+  <FormControl mt={4}>
+    <FormLabel htmlFor={id}>{label}</FormLabel>
+    <Input
+      focusBorderColor="white"
+      size="lg"
+      variant="flushed"
+      id={id}
+      type={type}
+      className="w-full text-white"
+    />
+  </FormControl>
+);
 
 const ContactOverlay = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-center items-center bg-black">
-      <div className="w-full max-w-5xl mx-auto flex text-white">
-        {/* Contact Information */}
-        <div className="w-1/2 p-8">
-          <h2 className="text-2xl font-bold">
-            KENDRICK GUEHR | CA DRE #01964065
-          </h2>
-          <p>Phone: (805) 448-4185</p>
-          <p>Email: KENDRICK@THEEPSTEINPARTNERS.COM</p>
-          <p>Address: 1511 Chapala Street, Santa Barbara CA 93101</p>
-          <p>1235 Coast Village Rd Suite F, Montecito CA 93108</p>
-          <div className="flex space-x-4 mt-4">
-            <Link href="#" isExternal>
-              {/* Icons can be added here */}
-              Facebook Icon
-            </Link>
-            <Link href="#" isExternal>
-              Instagram Icon
-            </Link>
-            <Link href="#" isExternal>
-              LinkedIn Icon
-            </Link>
-            <Link href="#" isExternal>
-              YouTube Icon
-            </Link>
-          </div>
-        </div>
-        {/* Contact Form */}
-        <div className="w-1/2 p-8 bg-gray-800">
+    <Box className="fixed inset-0 z-50 flex justify-center items-center bg-black">
+      <Box className="w-full max-w-5xl mx-auto flex items-center text-white">
+        <VStack
+          className="hidden lg:flex"
+          w="50%"
+          py={8}
+          px={4}
+          alignItems="start"
+          spacing={8}
+        >
+          <Text
+            as="h2"
+            size="lg"
+            className={`${fonts.barlowCondensed.variable} text-5xl font-[500]`}
+          >
+            OBASH SIGNATURES
+          </Text>
+          <ContactDetail
+            icon={PhoneIcon}
+            label="Phone"
+            value="(805) 233-1232"
+            link="tel:8052331232"
+          />
+          <ContactDetail
+            icon={EnvelopeIcon}
+            label="Email"
+            value="contact@obashsignatures.com"
+            link="mailto:contact@obashsignatures.com"
+          />
+          <ContactDetail
+            icon={MapIcon}
+            label="Address"
+            value="1511 CHAPALA STREET SANTA BARBARA CA 93101"
+          />
+        </VStack>
+        <Box className="w-full lg:w-1/2" p={8}>
           <form>
-            <div>
-              <label htmlFor="name">Name</label>
-              <input
-                id="name"
-                type="text"
-                className="w-full p-2 mt-2 bg-gray-700 text-white"
-              />
-            </div>
-            <div className="mt-4">
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                className="w-full p-2 mt-2 bg-gray-700 text-white"
-              />
-            </div>
-            <div className="mt-4">
-              <label htmlFor="phone">Phone</label>
-              <input
-                id="phone"
-                type="tel"
-                className="w-full p-2 mt-2 bg-gray-700 text-white"
-              />
-            </div>
-            <div className="mt-4">
-              <label htmlFor="message">Message</label>
-              <textarea
+            <ContactFormInput id="name" label="Name" type="text" />
+            <ContactFormInput id="email" label="Email" type="email" />
+            <ContactFormInput id="phone" label="Phone" type="tel" />
+            <FormControl mt={4}>
+              <FormLabel htmlFor="message">Message</FormLabel>
+              <Textarea
+                focusBorderColor="white"
+                variant="flushed"
                 id="message"
-                className="w-full p-2 mt-2 bg-gray-700 text-white"
-              ></textarea>
-            </div>
-            <div className="mt-4">
-              <button
-                type="submit"
-                className="w-full p-2 bg-blue-600 hover:bg-blue-500 text-white"
-              >
-                Send Message
-              </button>
-            </div>
+                className="w-full text-white"
+              />
+            </FormControl>
+            <Button
+              type="submit"
+              _hover={{ backgroundColor: "#dedede" }}
+              variant="solid"
+              size="lg"
+              backgroundColor="white"
+              className="mt-4 px-12 text-black rounded-none uppercase font-[500]"
+            >
+              Submit
+            </Button>
           </form>
-        </div>
-      </div>
-      <button
+        </Box>
+      </Box>
+      <IconButton
         onClick={onClose}
-        className="absolute top-4 right-4 text-white text-2xl"
-      >
-        &times;
-      </button>
-    </div>
+        className="absolute top-8 right-8"
+        icon={<XMarkIcon />}
+        variant="unstyled"
+        aria-label="Close"
+        size="lg"
+        color={"white"}
+      />
+    </Box>
   );
 };
 
