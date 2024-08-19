@@ -59,7 +59,11 @@ const Footer = () => {
         <div className="w-full h-[1px] bg-black mt-8"></div>
         <p className="self-center text-center">
           &copy; 2024 OBASH SIGNATURES. All rights reserved. Designed by{" "}
-          <Link href="https://www.github.com/Gabbydamian" className="underline">
+          <Link
+            href="https://www.github.com/Gabbydamian"
+            target="__blank"
+            className="underline"
+          >
             Gabby Damian
           </Link>
         </p>

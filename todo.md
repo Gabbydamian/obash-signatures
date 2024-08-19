@@ -9,3 +9,4 @@
 - [ ] Free License Images
 - [ ] Listing Information
 - [ ] Make navbar White when open on mobile instead of transparaent
+- [ ] Admin Page

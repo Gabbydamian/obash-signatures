@@ -1,10 +1,16 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Image, Link } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { data } from "../listings/data";
 
 const Carousel = () => {
+  // const getFeaturedListings = (data) => {
+  //   const shuffled = data.slice().sort(() => 0.5 - Math.random());
+  //   return shuffled.slice(0, 3);
+  // };
+  // const listings = getFeaturedListings(data);
+
   const listings = data.slice(0, 3);
 
   const [currentListing, setCurrentListing] = useState(0);
@@ -27,7 +33,10 @@ const Carousel = () => {
         className="object-cover w-full grayscale-[0.5] hover:filter-none transition-all ease-in-out duration-300"
         alt="Carousel Image"
       />
-      <Link href="#" className="relative w-full ">
+      <Link
+        href={`/listings/${listings[currentListing].id}`}
+        className="relative w-full "
+      >
         <div className="absolute bottom-0 p-4 left-0 pl-16 bg-black bg-opacity-90 text-white hover:pr-6 md:hover:pr-12 hover:bg-opacity-75 transition-all duration-300 ease-in-out">
           <h3 className="text-[1.5rem] md:text-[2.5rem]">
             {listings[currentListing].address}, {listings[currentListing].city}
