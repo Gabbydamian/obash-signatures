@@ -1,5 +1,6 @@
 import React from "react";
 import Footer from "../../components/Footer";
+import { Link } from "@chakra-ui/react";
 import {
   Image,
   Stack,
@@ -37,7 +38,7 @@ const Listing = ({ listing }) => {
           className="h-[24rem] hover:scale-[1.02] transition-transform duration-500 ease-in-out"
         />
       </div>
-      <div className="container mx-auto py-4 mb-12">
+      <div className="container mx-auto py-4 lg:px-16 mb-12">
         <Stack direction="column" mt={3} spacing={3}>
           <Text as={"h2"} className="text-3xl font-bold uppercase">
             {listing.address}
@@ -51,7 +52,7 @@ const Listing = ({ listing }) => {
           <Text as={"h3"} className="text-xl font-semibold text-gray-900">
             {listing.price}
           </Text>
-          <Text as={"p"} className="text-balance">
+          <Text as={"p"} className=" text-justify">
             {listing.description
               ? listing.description
               : `       This stunning property located in the prestigious Victoria Island area of Lagos offers a perfect blend of luxury and convenience. Boasting modern architectural design and high-end finishes, this residence features spacious living areas, a contemporary kitchen, and elegant bathrooms. The property is situated in a vibrant neighborhood known for its upscale amenities and proximity to key business hubs.
@@ -61,6 +62,9 @@ const Listing = ({ listing }) => {
           <Text as={"h3"} className="text-xl text-gray-900 font-semibold">
             {listing.details}
           </Text>
+          <Link href={"/listings"} className="text-blue-700 underline">
+            See all available listings
+          </Link>
         </Stack>
         <Stack
           direction={"column"}
@@ -85,6 +89,7 @@ const Listing = ({ listing }) => {
                 variant="flushed"
                 id="message"
                 className="w-full text-black border-b border-[#6d6a6a]"
+                placeholder={`I am interested in this property at ${listing.address}, costing ${listing.price}, and would like to schedule a viewing. Please contact me at your earliest convenience.`}
               />
             </FormControl>
             <input
