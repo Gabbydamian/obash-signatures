@@ -63,7 +63,7 @@ const Listing = ({ listing }) => {
             {listing.details}
           </Text>
           <Link href={"/listings"} className="text-blue-700 underline">
-            See all available listings
+            Go back to see all available listings
           </Link>
         </Stack>
         <Stack
