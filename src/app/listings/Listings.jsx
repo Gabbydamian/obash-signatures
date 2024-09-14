@@ -1,5 +1,6 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   Card,
   CardBody,
@@ -14,17 +15,23 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
-// import { ChevronDownIcon } from "@chakra-ui/icons";
+const Listings = ({ data, loading }) => {
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("search") || ""; // Ensure default empty string
 
-const Listings = ({ data }) => {
   const [filterCity, setFilterCity] = useState("");
-  const [filterType, setFilterType] = useState([]); // Now an array to support multiple types
-  const [sortOrder, setSortOrder] = useState(""); // "asc" or "desc"
+  const [filterType, setFilterType] = useState([]);
+  const [sortOrder, setSortOrder] = useState("");
   const [priceRange, setPriceRange] = useState("");
 
-  // Extract unique cities and property types from data
+  useEffect(() => {
+    if (searchQuery) {
+      setFilterCity(""); // Reset filter if search is active
+    }
+  }, [searchQuery]);
+
   const cities = useMemo(
     () => [...new Set(data.map((item) => item.city))],
     [data]
@@ -34,57 +41,58 @@ const Listings = ({ data }) => {
     [data]
   );
 
-  // Handle filtering by city
-  const handleFilterCity = (e) => {
-    setFilterCity(e.target.value);
-  };
+  // Filtering Logic
+  const filteredData = useMemo(() => {
+    return data
+      .filter((item) => {
+        if (!searchQuery) return true; // Return all data if search is empty
 
-  // Handle sorting
-  const handleSortOrder = (e) => {
-    setSortOrder(e.target.value);
-  };
+        const searchLower = searchQuery.toLowerCase();
+        const price = parseInt(item.price.replace(/₦|,/g, ""));
 
-  // Handle price range filtering
-  const handlePriceRange = (e) => {
-    setPriceRange(e.target.value);
-  };
-
-  // Filter and sort the data
-  const filteredData = data
-    .filter((item) => (filterCity ? item.city === filterCity : true))
-    .filter((item) =>
-      filterType.length > 0 ? filterType.includes(item.type) : true
-    ) // Adjusted to check for multiple types
-    .filter((item) => {
-      if (!priceRange) return true;
-      const price = parseInt(item.price.replace(/₦|,/g, ""));
-      switch (priceRange) {
-        case "below-100":
-          return price < 100000000;
-        case "100-150":
-          return price >= 100000000 && price <= 150000000;
-        case "150-200":
-          return price > 150000000 && price <= 200000000;
-        case "above-200":
-          return price > 200000000;
-        default:
-          return true;
-      }
-    })
-    .sort((a, b) => {
-      if (sortOrder === "asc") {
         return (
-          parseInt(a.price.replace(/₦|,/g, "")) -
-          parseInt(b.price.replace(/₦|,/g, ""))
+          item.city.toLowerCase().includes(searchLower) || // Match city
+          item.type.toLowerCase().includes(searchLower) || // Match type
+          item.address.toLowerCase().includes(searchLower) || // Match address
+          item.details.toLowerCase().includes(searchLower) || // Match details
+          price.toString().includes(searchQuery) // Match price
         );
-      } else if (sortOrder === "desc") {
-        return (
-          parseInt(b.price.replace(/₦|,/g, "")) -
-          parseInt(a.price.replace(/₦|,/g, ""))
-        );
-      }
-      return 0;
-    });
+      })
+      .filter((item) => (filterCity ? item.city === filterCity : true))
+      .filter((item) =>
+        filterType.length > 0 ? filterType.includes(item.type) : true
+      )
+      .filter((item) => {
+        if (!priceRange) return true;
+        const price = parseInt(item.price.replace(/₦|,/g, ""));
+        switch (priceRange) {
+          case "below-100":
+            return price < 100000000;
+          case "100-150":
+            return price >= 100000000 && price <= 150000000;
+          case "150-200":
+            return price > 150000000 && price <= 200000000;
+          case "above-200":
+            return price > 200000000;
+          default:
+            return true;
+        }
+      })
+      .sort((a, b) => {
+        if (sortOrder === "asc") {
+          return (
+            parseInt(a.price.replace(/₦|,/g, "")) -
+            parseInt(b.price.replace(/₦|,/g, ""))
+          );
+        } else if (sortOrder === "desc") {
+          return (
+            parseInt(b.price.replace(/₦|,/g, "")) -
+            parseInt(a.price.replace(/₦|,/g, ""))
+          );
+        }
+        return 0;
+      });
+  }, [data, searchQuery, filterCity, filterType, priceRange, sortOrder]);
 
   return (
     <div className="container flex flex-col items-center mx-auto py-12">
@@ -93,7 +101,7 @@ const Listings = ({ data }) => {
         {/* Filter by City */}
         <Select
           placeholder="Filter by City"
-          onChange={handleFilterCity}
+          onChange={(e) => setFilterCity(e.target.value)}
           maxW="200px"
         >
           {cities.map((city, idx) => (
@@ -131,7 +139,7 @@ const Listings = ({ data }) => {
         {/* Filter by Price Range */}
         <Select
           placeholder="Filter by Price"
-          onChange={handlePriceRange}
+          onChange={(e) => setPriceRange(e.target.value)}
           maxW="200px"
         >
           <option value="below-100">Below ₦100M</option>
@@ -143,7 +151,7 @@ const Listings = ({ data }) => {
         {/* Sort by Price */}
         <Select
           placeholder="Sort by Price"
-          onChange={handleSortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
           maxW="200px"
         >
           <option value="asc">Price: Low to High</option>
@@ -178,8 +186,18 @@ const Listings = ({ data }) => {
               </Card>
             </Link>
           ))
+        ) : loading ? (
+          <p className="grid place-items-center h-full my-auto">Loading...</p>
         ) : (
-          <p>No listings match your criteria.</p>
+          <div className="flex flex-col items-center gap-4 mt-10">
+            <p>No listings match your criteria</p>
+            <Link
+              href="/listings"
+              className="text-blue-700 underline flex gap-2 items-center"
+            >
+              <ArrowLeftIcon className="size-4" /> View all listings
+            </Link>
+          </div>
         )}
       </div>
     </div>
