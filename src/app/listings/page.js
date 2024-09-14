@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Listings from "./Listings";
@@ -42,7 +42,9 @@ export default function Main() {
   return (
     <>
       <Nav />
-      <Listings data={data} loading={loading} />
+      <Suspense fallback={<div>Loading listings...</div>}>
+        <Listings data={data} loading={loading} />
+      </Suspense>
       <Footer />
     </>
   );
