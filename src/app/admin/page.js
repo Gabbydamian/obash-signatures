@@ -19,7 +19,7 @@ export default function AdminLogin() {
     if (userId === storedUserId && passkey === storedPasskey) {
       // If credentials match, store session (for example, localStorage or a token)
       localStorage.setItem("isAdmin", "true");
-      router.push("/admin/dashboard"); // Redirect to admin dashboard
+      router.push("/admin/listings"); // Redirect to admin dashboard
     } else {
       setError("Invalid credentials");
       router.push("/404"); // Redirect to 404 if credentials are wrong

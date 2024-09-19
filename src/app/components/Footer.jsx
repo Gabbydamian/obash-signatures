@@ -47,8 +47,8 @@ const Footer = () => {
           <ContactInfo
             icon={PhoneIcon}
             label="Phone"
-            content="(805) 233-1232"
-            href="tel:8052331232"
+            content="(234) 807 414 5068"
+            href="tel:8074145068"
           />
           <ContactInfo
             icon={MapIcon}

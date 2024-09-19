@@ -49,7 +49,7 @@ const Listing = ({ listing }) => {
               .toUpperCase()} ${listing.zipCode}`}
           </Text>
           <hr className="border-gray-900" />
-          <Text as={"h3"} className="text-xl font-semibold text-gray-900">
+          <Text as={"h3"} className="text-2xl font-semibold text-gray-900">
             {listing.price}
           </Text>
           <Text as={"p"} className=" text-justify">

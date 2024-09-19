@@ -7,7 +7,7 @@ import FilterLogic from "./FilterLogic";
 import ListingCard from "./ListingCard";
 import Pagination from "./Pagination";
 
-const Listings = ({ data, loading }) => {
+const Listings = ({ data, loading, error }) => {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search") || ""; // Ensure default empty string
 
@@ -127,6 +127,19 @@ const Listings = ({ data, loading }) => {
         ) : loading ? (
           <div className="grid place-items-center h-full my-auto">
             <Spinner size="xl" thickness="4px" />
+          </div>
+        ) : error ? (
+          <div className="grid place-items-center h-full my-auto mt-10">
+            <p className="text-md text-red-500 flex flex-col items-center">
+              {error}. Please Reload the page or contact the administrator{" "}
+              <br />
+              <ChakraLink
+                href="/"
+                className="text-center text-blue-500 underline mt-4"
+              >
+                Back to Home
+              </ChakraLink>
+            </p>
           </div>
         ) : (
           <div className="flex flex-col items-center gap-4 mt-10">

@@ -40,7 +40,7 @@ const FilterLogic = ({
       {/* Filter by Property Type */}
       <Menu closeOnSelect={false}>
         <MenuButton
-          className="flex items-center w-80 bg-transparent border border-gray-300 rounded-md p-2 font-[500]"
+          className="flex items-center w-80 bg-transparent border border-gray-300 rounded-md p-2 font-[400]"
           as={Button}
           rightIcon={<ChevronDownIcon className="size-4" />}
         >

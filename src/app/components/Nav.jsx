@@ -78,10 +78,10 @@ const Nav = () => {
             </li>
           </ul>
           <Link
-            href="tel:8012345678"
+            href="tel:8074145068"
             className={`${linkClasses} hidden lg:block`}
           >
-            (805) 233-1232
+            (234) 807 414 5068
           </Link>
         </div>
       </nav>

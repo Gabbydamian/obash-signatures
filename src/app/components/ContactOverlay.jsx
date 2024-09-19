@@ -75,8 +75,8 @@ const ContactOverlay = ({ isOpen, onClose }) => {
           <ContactDetail
             icon={PhoneIcon}
             label="Phone"
-            value="(805) 233-1232"
-            link="tel:8052331232"
+            value="(234) 807 414 5068"
+            link="tel:8074145068"
           />
           <ContactDetail
             icon={EnvelopeIcon}

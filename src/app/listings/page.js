@@ -31,19 +31,11 @@ export default function Main() {
     fetchData();
   }, []);
 
-  // if (loading) {
-  //   return <p className="grid place-items-center h-full my-auto">Loading...</p>; // Show loading indicator
-  // }
-
-  if (error) {
-    return <p>{error}</p>; // Show error message if any
-  }
-
   return (
     <>
       <Nav />
       <Suspense fallback={<div>Loading listings...</div>}>
-        <Listings data={data} loading={loading} />
+        <Listings data={data} loading={loading} error={error} />
       </Suspense>
       <Footer />
     </>
