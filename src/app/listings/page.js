@@ -3,6 +3,7 @@ import { useState, useEffect, Suspense } from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Listings from "./Listings";
+import { data } from "./data";
 
 export default function Main() {
   const [data, setData] = useState([]);
@@ -33,6 +34,7 @@ export default function Main() {
 
   return (
     <>
+      {}
       <Nav />
       <Suspense fallback={<div>Loading listings...</div>}>
         <Listings data={data} loading={loading} error={error} />

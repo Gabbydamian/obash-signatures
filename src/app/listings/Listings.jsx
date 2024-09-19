@@ -10,10 +10,9 @@ import Pagination from "./Pagination";
 const Listings = ({ data, loading, error }) => {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search") || ""; // Ensure default empty string
-
   const [filterCity, setFilterCity] = useState("");
-  const [filterType, setFilterType] = useState([]);
-  const [sortOrder, setSortOrder] = useState("");
+  const [filterType, setFilterType] = useState([]); // Now an array to support multiple types
+  const [sortOrder, setSortOrder] = useState(""); // "asc" or "desc"
   const [priceRange, setPriceRange] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -37,7 +36,6 @@ const Listings = ({ data, loading, error }) => {
     [data]
   );
 
-  // Filter logic broken into smaller functions for better performance
   const filteredByCity = useMemo(() => {
     return filterCity ? data.filter((item) => item.city === filterCity) : data;
   }, [data, filterCity]);
@@ -117,7 +115,6 @@ const Listings = ({ data, loading, error }) => {
         priceRange={priceRange}
         sortOrder={sortOrder}
       />
-
       {/* Listings */}
       <div className="flex flex-col items-center md:justify-center gap-8 md:flex-row md:flex-wrap md:gap-4">
         {paginatedData.length > 0 ? (
