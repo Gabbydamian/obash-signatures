@@ -9,7 +9,6 @@ import {
   FormLabel,
   Spinner,
   Stack,
-  
 } from "@chakra-ui/react";
 
 const EditListing = ({ params }) => {
@@ -21,7 +20,12 @@ const EditListing = ({ params }) => {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/listings/${id}`);
+        const response = await fetch(`/api/listings/${id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch listing.");
         }
@@ -44,7 +48,13 @@ const EditListing = ({ params }) => {
 
   const handleSubmit = async () => {
     try {
-      // Add API call to update the listing here
+      const response = await fetch(`/api/listings/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
       console.log("Updated data: ", formData);
     } catch (error) {
       console.error("Failed to update the listing.", error);

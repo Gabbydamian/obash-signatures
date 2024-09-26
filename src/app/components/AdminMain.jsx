@@ -12,7 +12,12 @@ const AdminMain = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/listings");
+        const response = await fetch("/api/listings", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch listings.");
@@ -53,15 +58,9 @@ const AdminMain = () => {
           </p>
         </div>
       ) : (
-        <div className="flex flex-col items-center gap-4 mt-10">
-          <p>No listings match your criteria</p>
-          <ChakraLink
-            href="/listings"
-            className="text-blue-700 underline flex gap-2 items-center"
-          >
-            <ArrowLeftIcon className="size-4" /> View all listings
-          </ChakraLink>
-        </div>
+        data.map((item, idx) => (
+          <AdminListingCard key={idx} item={item} idx={idx} />
+        ))
       )}
     </div>
   );

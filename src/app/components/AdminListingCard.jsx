@@ -24,7 +24,7 @@ const AdminListingCard = ({ item, idx }) => {
   };
 
   const handleDelete = () => {
-    fetch(`http://localhost:3001/listings/${item.id}`, {
+    fetch(`api/listings/${item.id}`, {
       method: "DELETE",
     }).then(() => {
       router.refresh();
@@ -35,7 +35,7 @@ const AdminListingCard = ({ item, idx }) => {
     <>
       <ChakraLink
         key={idx}
-        onClick={handleOpenListing} // Navigate to the edit page
+        onClick={handleEditClick} // Navigate to the edit page
         className="min-h-[290px] hover:no-underline rounded-md"
       >
         <Card
@@ -55,14 +55,16 @@ const AdminListingCard = ({ item, idx }) => {
               <p className="text-sm text-center">{`${item.address}, ${item.city}`}</p>
               <div className="flex items-center gap-4 justify-center">
                 <Button
-                  size={"sm"}
+                  size={"xs"}
                   colorScheme={"teal"}
+                  className="flex items-center justify-center gap-1 text-xs p-2"
                   onClick={handleEditClick} // Navigate to the edit page
                 >
-                  <PencilSquareIcon /> Edit
+                  <PencilSquareIcon className="size-4"/> Edit
                 </Button>
-                <Button size={"sm"} colorScheme={"red"} onClick={handleDelete}>
-                  <TrashIcon /> Delete
+                <Button size={"xs"} colorScheme={"red"}
+                className="flex items-center justify-center gap-1 text-xs p-2" onClick={handleDelete}>
+                  <TrashIcon className="size-4"/> Delete
                 </Button>
               </div>
             </Stack>
