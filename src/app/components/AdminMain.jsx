@@ -12,19 +12,15 @@ const AdminMain = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/listings", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch("/api/listings");
 
         if (!response.ok) {
           throw new Error("Failed to fetch listings.");
         }
 
         const data = await response.json();
-        setData(data);
+        const listings = data[0]?.listings || [];
+        setData(listings);
         console.log(data);
       } catch (error) {
         setError(error.message);

@@ -30,7 +30,8 @@ const EditListing = ({ params }) => {
           throw new Error("Failed to fetch listing.");
         }
         const data = await response.json();
-        setFormData(data);
+        const listings = data[0]?.listings || [];
+        setFormData(listings);
       } catch (error) {
         console.error(error);
       } finally {

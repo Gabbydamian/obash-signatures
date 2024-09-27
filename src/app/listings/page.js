@@ -20,7 +20,8 @@ export default function Main() {
         }
 
         const data = await response.json();
-        setData(data);
+        const listings = data[0]?.listings || []; 
+        setData(listings);
         console.log(data);
       } catch (error) {
         setError(error.message);
