@@ -2,7 +2,6 @@ import Nav from "../../components/Nav";
 import Listing from "./Listing";
 import baseUrl from "../../../utils/getUrl";
 
-// Fetch data from the API during build time to generate static paths
 export async function generateStaticParams() {
   const res = await fetch(`${baseUrl}/api/listings`);
   const data = await res.json();

@@ -1,50 +1,23 @@
 // app/admin/listings/[id]/ListingDetails.js
-
-"use client"; // Mark this component to run on the client
-
-import React, { useEffect, useState } from "react";
+"use client";
+import React from "react";
 import { Image, Stack, Text, Button, Spinner } from "@chakra-ui/react";
 import baseUrl from "../../utils/getUrl";
 
-const ListingDetails = ({ params }) => {
-  const [listing, setListing] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const ListingDetails = ({ listing, params }) => {
   const { id } = params;
 
-  useEffect(() => {
-    const fetchListing = async () => {
-      try {
-        const response = await fetch(`${baseUrl}/api/listings`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch listing details.");
-        }
-        const data = await response.json();
+  // try {
+  //   const res = await fetch(`${baseUrl}/api/listings`);
+  //   const data = await res.json();
 
-        // Assuming listings are stored inside data[0].listings
-        const foundListing = data[0]?.listings.find((item) => item.id === id);
-        if (!foundListing) {
-          throw new Error("Listing not found.");
-        }
+  //   // Accessing the listings from the first object
+  //   const listings = data[0]?.listings || [];
+  //   const listing = listings.find((item) => item.id === id); // Find listing by ID
 
-        setListing(foundListing);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchListing();
-  }, [id]);
-
-  if (loading)
-    return (
-      <div className="grid place-items-center h-full my-auto">
-        <Spinner size="xl" thickness="4px" />
-      </div>
-    );
-  if (error) return <Text color="red.500">Error: {error}</Text>;
+  //   if (!listing) {
+  //     return <div>Listing not found</div>;
+  //   }
 
   return (
     <div>
@@ -98,6 +71,10 @@ const ListingDetails = ({ params }) => {
       </div>
     </div>
   );
+  // } catch (error) {
+  //   console.error("Error fetching listing:", error);
+  //   return <div>Error loading the listing</div>;
+  // }
 };
 
 export default ListingDetails;

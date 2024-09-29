@@ -3,7 +3,6 @@
 import baseUrl from "../../../../utils/getUrl";
 import ListingDetails from "../../../components/ListingDetails";
 
-// This is a server-side function, no `use client` directive here
 export async function generateStaticParams() {
   const res = await fetch(`${baseUrl}/api/listings`);
   const data = await res.json();
@@ -16,8 +15,28 @@ export async function generateStaticParams() {
   return paths.map((param) => ({
     params: param,
   }));
+
 }
 
-export default function Page({ params }) {
-  return <ListingDetails params={params} />;
-}
+const AdminListingPage = async ({ params }) => {
+  try {
+    const res = await fetch(`${baseUrl}/api/listings`);
+    const data = await res.json();
+
+    // Accessing the listings from the first object
+    const listings = data[0]?.listings || [];
+    const listing = listings.find((item) => item.id === params.id); // Find listing by ID
+
+    if (!listing) {
+      return <div>Listing not found</div>;
+    }
+
+    return <ListingDetails listing={listing} params={params} />;
+  } catch (error) {
+    console.error("Error fetching listing:", error);
+    return <div>Error loading the listing</div>;
+  }
+};
+
+
+export default AdminListingPage;
