@@ -1,4 +1,4 @@
-
+//src/app/api/listings/[id]/route.js
 
 import { connectToDatabase } from "../../../../lib/mongodb";
 import Listing from "../../../../models/Listing";
