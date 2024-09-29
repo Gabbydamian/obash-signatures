@@ -1,0 +1,1 @@
+const logoUrl = "/logo.svg";

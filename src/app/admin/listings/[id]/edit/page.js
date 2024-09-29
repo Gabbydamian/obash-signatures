@@ -1,102 +1,116 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import {
-  Input,
-  Button,
-  FormControl,
-  FormLabel,
-  Spinner,
-  Stack,
-} from "@chakra-ui/react";
+import { Input, Button, FormControl, FormLabel, Stack } from "@chakra-ui/react";
+import baseUrl from "../../../../../utils/getUrl";
 
 const EditListing = ({ params }) => {
-  const [formData, setFormData] = useState(null);
+  const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
-  const { id } = params;
+  const [error, setError] = useState(null);
 
+  // Fetch listing data in useEffect
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const response = await fetch(`/api/listings/${id}`, {
+        const res = await fetch(`${baseUrl}/api/listings`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
         });
-        if (!response.ok) {
-          throw new Error("Failed to fetch listing.");
-        }
-        const data = await response.json();
+        const data = await res.json();
+
+        // Access the listings array from the first object
         const listings = data[0]?.listings || [];
-        setFormData(listings);
+        const foundListing = listings.find((item) => item.id === params.id);
+
+        if (foundListing) {
+          setListing(foundListing); // Update the listing state
+        } else {
+          setError("Listing not found");
+        }
       } catch (error) {
-        console.error(error);
+        setError("Failed to fetch listing.");
+        console.error("Fetch error:", error);
       } finally {
         setLoading(false);
       }
     };
 
     fetchListing();
-  }, [id]);
+  }, [params.id]); // Fetch data when the component is mounted or when the id changes
 
+  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setListing((prev) => ({
+      ...prev,
+      [name]: value, // Update the listing state with the new values
+    }));
   };
 
+  // Handle submit
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`/api/listings/${id}`, {
+      const response = await fetch(`${baseUrl}/api/listings/${params.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(listing), // Send the updated listing data
       });
-      console.log("Updated data: ", formData);
+
+      if (!response.ok) {
+        throw new Error("Failed to update the listing.");
+      }
+
+      const updatedListing = await response.json();
+      console.log("Updated data: ", updatedListing);
     } catch (error) {
       console.error("Failed to update the listing.", error);
     }
   };
 
-  if (loading)
-    return (
-      <div className="grid place-items-center h-full my-auto">
-        <Spinner size="xl" thickness="4px" />
-      </div>
-    );
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div>
-      <h1>Edit Listing #{id}</h1>
+      <h1>Edit Listing #{params.id}</h1>
       <Stack spacing={4}>
         <FormControl>
           <FormLabel>Address</FormLabel>
           <Input
             name="address"
-            value={formData.address}
+            value={listing.address || ""}
             onChange={handleChange}
           />
         </FormControl>
 
         <FormControl>
           <FormLabel>City</FormLabel>
-          <Input name="city" value={formData.city} onChange={handleChange} />
+          <Input
+            name="city"
+            value={listing.city || ""}
+            onChange={handleChange}
+          />
         </FormControl>
 
         <FormControl>
           <FormLabel>Price</FormLabel>
-          <Input name="price" value={formData.price} onChange={handleChange} />
+          <Input
+            name="price"
+            value={listing.price || ""}
+            onChange={handleChange}
+          />
         </FormControl>
 
         <FormControl>
           <FormLabel>Details</FormLabel>
           <Input
             name="details"
-            value={formData.details}
+            value={listing.details || ""}
             onChange={handleChange}
           />
         </FormControl>
@@ -105,9 +119,12 @@ const EditListing = ({ params }) => {
           <FormLabel>Image URL</FormLabel>
           <Input
             name="images"
-            value={formData.images[0]}
+            value={listing.images[0] || ""}
             onChange={(e) =>
-              setFormData({ ...formData, images: [e.target.value] })
+              setListing((prev) => ({
+                ...prev,
+                images: [e.target.value], // Update the images array
+              }))
             }
           />
         </FormControl>

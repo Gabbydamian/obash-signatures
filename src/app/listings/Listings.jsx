@@ -127,8 +127,10 @@ const Listings = ({ data, loading, error }) => {
           </div>
         ) : error ? (
           <div className="grid place-items-center h-full my-auto mt-10">
-            <p className="text-md text-red-500 flex flex-col items-center">
-              {error}. Please Reload the page or contact the administrator{" "}
+            <p className="text-md max-w-lg text-balance text-center leading-relaxed text-red-500 flex flex-col items-center">
+              Error loading properties. Please check your network settings and
+              reload the page or contact the administrator
+              {console.log(error)}
               <br />
               <ChakraLink
                 href="/"

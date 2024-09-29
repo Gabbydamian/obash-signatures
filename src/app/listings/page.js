@@ -3,7 +3,7 @@ import { useState, useEffect, Suspense } from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Listings from "./Listings";
-import { data } from "./data";
+import baseUrl from "../../utils/getUrl";
 
 export default function Main() {
   const [data, setData] = useState([]);
@@ -13,14 +13,14 @@ export default function Main() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("api/listings");
+        const response = await fetch(`${baseUrl}/api/listings`);
 
         if (!response.ok) {
           throw new Error("Failed to fetch listings.");
         }
 
         const data = await response.json();
-        const listings = data[0]?.listings || []; 
+        const listings = data[0]?.listings || [];
         setData(listings);
         console.log(data);
       } catch (error) {

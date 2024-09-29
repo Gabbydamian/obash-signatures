@@ -2,6 +2,7 @@
 import react, { useState, useEffect } from "react";
 import AdminListingCard from "./AdminListingCard";
 import { Spinner, Link as ChakraLink } from "@chakra-ui/react";
+import baseUrl from "../../utils/getUrl";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 const AdminMain = () => {
@@ -12,7 +13,7 @@ const AdminMain = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/listings");
+        const response = await fetch(`${baseUrl}/api/listings`);
 
         if (!response.ok) {
           throw new Error("Failed to fetch listings.");
@@ -43,8 +44,11 @@ const AdminMain = () => {
         </div>
       ) : error ? (
         <div className="grid place-items-center h-full my-auto mt-10">
-          <p className="text-md text-red-500 flex flex-col items-center">
-            {error}. Please Reload the page or contact the administrator <br />
+          <p className="text-md max-w-lg text-balance text-center leading-relaxed text-red-500 flex flex-col items-center">
+            Error loading properties. Please check your network settings and
+            reload the page or contact the administrator
+            {console.log(error)}
+            <br />
             <ChakraLink
               href="/"
               className="text-center text-blue-500 underline mt-4"

@@ -1,19 +1,22 @@
-// import { connectToDatabase } from "@/lib/mongodb";
-// import Listing from "@/models/Listing";
 import { connectToDatabase } from "../../../lib/mongodb";
 import Listing from "../../../models/Listing";
+import { NextResponse } from "next/server";
 
-export async function GET(req, res) {
+// Handler for the GET request
+export async function GET() {
   try {
-    // Connect to the database
+    // Connect to the MongoDB database
     await connectToDatabase();
 
-    // Fetch all listings
+    // Fetch all listings from the database
     const listings = await Listing.find({});
 
-    return new Response(JSON.stringify(listings), { status: 200 });
+    // Return the listings as a JSON response
+    return NextResponse.json(listings, { status: 200 });
   } catch (error) {
     console.error("Error fetching listings:", error);
-    return new Response("Server Error", { status: 500 });
+
+    // Return an error response if something goes wrong
+    return NextResponse.json({ error: "Server Error" }, { status: 500 });
   }
 }
