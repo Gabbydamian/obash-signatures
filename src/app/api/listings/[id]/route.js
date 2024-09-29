@@ -1,5 +1,4 @@
-// import { connectToDatabase } from "@/lib/mongodb";
-// import Listing from "@/models/Listing";
+
 
 import { connectToDatabase } from "../../../../lib/mongodb";
 import Listing from "../../../../models/Listing";

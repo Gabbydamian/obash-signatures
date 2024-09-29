@@ -1,3 +1,5 @@
+//src/app/api/listings/route.js
+
 import { connectToDatabase } from "../../../lib/mongodb";
 import Listing from "../../../models/Listing";
 import { NextResponse } from "next/server";
