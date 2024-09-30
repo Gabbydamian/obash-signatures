@@ -4,9 +4,8 @@ import baseUrl from "../../../../utils/getUrl";
 import ListingDetails from "../../../components/ListingDetails";
 
 export async function generateStaticParams() {
-  const res = await fetch(`https://obash-api.vercel.app/api/listings`, {
+  const res = await fetch(`https://obash-api.vercel.app/api/listings/`, {
     method: "GET",
-    mode: "no-cors",
   });
   const data = await res.json();
 
@@ -22,9 +21,8 @@ export async function generateStaticParams() {
 
 const AdminListingPage = async ({ params }) => {
   try {
-    const res = await fetch(`https://obash-api.vercel.app/api/listings`, {
+    const res = await fetch(`https://obash-api.vercel.app/api/listings/`, {
       method: "GET",
-      mode: "no-cors",
     });
     const data = await res.json();
 

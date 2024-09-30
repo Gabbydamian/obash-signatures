@@ -14,10 +14,9 @@ const AdminMain = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://obash-api.vercel.app/api/listings`,
+          `https://obash-api.vercel.app/api/listings/`,
           {
             method: "GET",
-            mode: "no-cors",
           }
         );
 

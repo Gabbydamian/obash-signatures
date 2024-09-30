@@ -4,7 +4,6 @@ const getListings = async () => {
             `https://obash-api.vercel.app/api/listings/`,
             {
                 method: "GET",
-                mode: "no-cors",
             }
         );
 
