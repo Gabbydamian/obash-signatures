@@ -1,3 +1,5 @@
+// src/app/listings/page.js
+
 "use client";
 import { useState, useEffect, Suspense } from "react";
 import Nav from "../components/Nav";
@@ -13,7 +15,12 @@ export default function Main() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${baseUrl}/api/listings`);
+        const response = await fetch(
+          `https://obash-api.vercel.app/api/listings/`,
+          {
+            method: "GET",
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Failed to fetch listings.");

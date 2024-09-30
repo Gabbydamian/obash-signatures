@@ -13,7 +13,13 @@ const AdminMain = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${baseUrl}/api/listings`);
+        const response = await fetch(
+          `https://obash-api.vercel.app/api/listings`,
+          {
+            method: "GET",
+            mode: "no-cors",
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Failed to fetch listings.");

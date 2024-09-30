@@ -2,22 +2,9 @@
 "use client";
 import React from "react";
 import { Image, Stack, Text, Button, Spinner } from "@chakra-ui/react";
-import baseUrl from "../../utils/getUrl";
 
 const ListingDetails = ({ listing, params }) => {
   const { id } = params;
-
-  // try {
-  //   const res = await fetch(`${baseUrl}/api/listings`);
-  //   const data = await res.json();
-
-  //   // Accessing the listings from the first object
-  //   const listings = data[0]?.listings || [];
-  //   const listing = listings.find((item) => item.id === id); // Find listing by ID
-
-  //   if (!listing) {
-  //     return <div>Listing not found</div>;
-  //   }
 
   return (
     <div>
@@ -71,10 +58,6 @@ const ListingDetails = ({ listing, params }) => {
       </div>
     </div>
   );
-  // } catch (error) {
-  //   console.error("Error fetching listing:", error);
-  //   return <div>Error loading the listing</div>;
-  // }
 };
 
 export default ListingDetails;

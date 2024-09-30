@@ -29,7 +29,8 @@ const AdminListingCard = ({ item, idx }) => {
   // Handle the delete action
   const handleDelete = (e) => {
     e.stopPropagation(); // Prevent the card click from triggering
-    fetch(`${baseUrl}/api/listings/${item.id}`, {
+    fetch(`https://obash-api.vercel.app/api/listings/${item.id}`, {
+      mode: "no-cors",
       method: "DELETE",
     }).then(() => {
       router.refresh(); // Refresh the page after deletion

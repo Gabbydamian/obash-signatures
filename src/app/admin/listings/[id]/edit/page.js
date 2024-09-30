@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { Input, Button, FormControl, FormLabel, Stack } from "@chakra-ui/react";
-import baseUrl from "../../../../../utils/getUrl";
 
 const EditListing = ({ params }) => {
   const [listing, setListing] = useState(null);
@@ -13,11 +12,9 @@ const EditListing = ({ params }) => {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const res = await fetch(`${baseUrl}/api/listings`, {
+        const res = await fetch(`https://obash-api.vercel.app/api/listings/`, {
           method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          mode: "no-cors",
         });
         const data = await res.json();
 
@@ -53,13 +50,17 @@ const EditListing = ({ params }) => {
   // Handle submit
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`${baseUrl}/api/listings/${params.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(listing), // Send the updated listing data
-      });
+      const response = await fetch(
+        `https://obash-api.vercel.app/api/listings/${params.id}`,
+        {
+          method: "PUT",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(listing), // Send the updated listing data
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to update the listing.");

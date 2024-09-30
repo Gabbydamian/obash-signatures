@@ -1,3 +1,4 @@
+// src/app/listings/Listings.jsx
 "use client";
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
