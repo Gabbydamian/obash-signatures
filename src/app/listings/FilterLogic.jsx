@@ -32,8 +32,8 @@ const FilterLogic = ({
         value={filterCity}
         maxW="200px"
       >
-        {cities.map((city, idx) => (
-          <option key={idx} value={city}>
+        {cities.map((city) => (
+          <option key={city.id} value={city}>
             {city}
           </option>
         ))}
@@ -54,8 +54,8 @@ const FilterLogic = ({
             onChange={(selectedTypes) => setFilterType(selectedTypes)}
           >
             <div className="flex flex-col gap-2 p-4">
-              {propertyTypes.map((type, idx) => (
-                <Checkbox key={idx} value={type}>
+              {propertyTypes.map((type) => (
+                <Checkbox key={type.id} value={type}>
                   {type}
                 </Checkbox>
               ))}

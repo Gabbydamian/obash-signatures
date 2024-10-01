@@ -3,11 +3,11 @@
 import { Card, CardBody, Image, Stack } from "@chakra-ui/react";
 import { Link as ChakraLink } from "@chakra-ui/react";
 
-const ListingCard = ({ item, idx }) => {
+const ListingCard = ({ item }) => {
   return (
     <ChakraLink
-      key={idx}
-      href={`/listings/${idx}`}
+      key={item.id}
+      href={`/listings/${item.id}`}
       className="min-h-[350px] filter grayscale-[0.5] hover:no-underline hover:scale-[.99] border rounded-md border-gray-200 hover:filter-none transition-all duration-300 ease-in-out"
     >
       <Card maxW="xs" className="min-h-[350px]">

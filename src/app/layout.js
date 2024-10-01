@@ -1,5 +1,6 @@
 import { fonts } from "./font";
 import { Providers } from "./provides";
+import { ListingsProvider } from "@/context/ListingsContext";
 import "./globals.css";
 
 export const metadata = {
@@ -21,7 +22,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${fonts.montserrat.variable} ${fonts.barlowCondensed.variable}`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <ListingsProvider>{children}</ListingsProvider>
+        </Providers>
       </body>
     </html>
   );

@@ -132,8 +132,8 @@ const Listings = ({ data, loading, error }) => {
       />
       <div className="flex flex-col items-center md:justify-center gap-8 md:flex-row md:flex-wrap md:gap-4">
         {paginatedData.length > 0 ? (
-          paginatedData.map((item, idx) => (
-            <ListingCard key={idx} item={item} idx={idx} />
+          paginatedData.map((item) => (
+            <ListingCard key={item.id} item={item} />
           ))
         ) : loading ? (
           <div className="grid place-items-center h-full my-auto">

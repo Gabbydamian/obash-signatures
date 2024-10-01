@@ -1,51 +1,15 @@
 "use client";
 import react, { useState, useEffect } from "react";
+import { useListings } from "@/context/ListingsContext";
 import AdminListingCard from "./AdminListingCard";
 import { Spinner, Link as ChakraLink } from "@chakra-ui/react";
 
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 const AdminMain = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
-  const [error, setError] = useState(null); // Add error state
+  const { listings, loading, error } = useListings();
+  const data = listings;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `https://obash-express-api.vercel.app/api/listings`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              credentials: "include",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-        console.log("Raw API response:", result); // Log the raw response
-
-        // Check the structure of the response
-        const listing = Array.isArray(result) ? result : result.listings || [];
-        const listings = listing[0]?.listings || [];
-        setData(listings);
-        console.log("Processed listings:", listings);
-      } catch (error) {
-        console.error("Fetch error:", error);
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
   return (
     <div className="flex flex-col py-16 items-center md:justify-center gap-4 md:flex-row md:flex-wrap md:gap-4">
       {data.length > 0 ? (
