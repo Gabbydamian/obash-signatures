@@ -2,7 +2,7 @@
 import react, { useState, useEffect } from "react";
 import AdminListingCard from "./AdminListingCard";
 import { Spinner, Link as ChakraLink } from "@chakra-ui/react";
-import baseUrl from "../../utils/getUrl";
+
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 const AdminMain = () => {
@@ -14,21 +14,30 @@ const AdminMain = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://obash-api.vercel.app/api/listings/`,
+          `https://obash-express-api.vercel.app/api/listings`,
           {
             method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              credentials: "include",
+            },
           }
         );
 
         if (!response.ok) {
-          throw new Error("Failed to fetch listings.");
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json();
-        const listings = data[0]?.listings || [];
+        const result = await response.json();
+        console.log("Raw API response:", result); // Log the raw response
+
+        // Check the structure of the response
+        const listing = Array.isArray(result) ? result : result.listings || [];
+        const listings = listing[0]?.listings || [];
         setData(listings);
-        console.log(data);
+        console.log("Processed listings:", listings);
       } catch (error) {
+        console.error("Fetch error:", error);
         setError(error.message);
       } finally {
         setLoading(false);

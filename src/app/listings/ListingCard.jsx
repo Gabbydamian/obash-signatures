@@ -1,3 +1,5 @@
+// src/app/listings/ListingCard.jsx
+
 import { Card, CardBody, Image, Stack } from "@chakra-ui/react";
 import { Link as ChakraLink } from "@chakra-ui/react";
 

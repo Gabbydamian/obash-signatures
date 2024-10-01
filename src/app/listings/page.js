@@ -14,13 +14,12 @@ export default function Main() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://obash-api.vercel.app/api/listings/`,
+          `https://obash-express-api.vercel.app/api/listings`,
           {
             method: "GET",
-            credentials: "include", // Add this line
             headers: {
               "Content-Type": "application/json",
-              // Add any other necessary headers here
+              credentials: "include",
             },
           }
         );
@@ -33,7 +32,8 @@ export default function Main() {
         console.log("Raw API response:", result); // Log the raw response
 
         // Check the structure of the response
-        const listings = Array.isArray(result) ? result : result.listings || [];
+        const listing = Array.isArray(result) ? result : result.listings || [];
+        const listings = listing[0]?.listings || [];
         setData(listings);
         console.log("Processed listings:", listings);
       } catch (error) {
