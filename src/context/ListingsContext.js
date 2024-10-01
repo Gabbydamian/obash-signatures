@@ -16,9 +16,6 @@ export const ListingsProvider = ({ children }) => {
           `https://obash-express-api.vercel.app/api/listings`,
           {
             method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
           }
         );
 
