@@ -1,10 +1,8 @@
 "use client";
-import react, { useState, useEffect } from "react";
 import { useListings } from "@/context/ListingsContext";
 import AdminListingCard from "./AdminListingCard";
 import { Spinner, Link as ChakraLink } from "@chakra-ui/react";
 
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 const AdminMain = () => {
   const { listings, loading, error } = useListings();

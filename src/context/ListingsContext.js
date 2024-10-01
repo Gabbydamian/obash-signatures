@@ -19,7 +19,6 @@ export const ListingsProvider = ({ children }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            credentials: "include",
           }
         );
 
