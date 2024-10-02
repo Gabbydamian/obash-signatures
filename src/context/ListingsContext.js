@@ -13,7 +13,7 @@ export const ListingsProvider = ({ children }) => {
     const fetchListings = async () => {
       try {
         const response = await fetch(
-          `https://obash-express-api.vercel.app/api/listings`,
+          `https://obash-express-api.onrender.com/api/listings`,
           {
             method: "GET",
           }
