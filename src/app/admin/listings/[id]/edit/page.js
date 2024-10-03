@@ -2,40 +2,26 @@
 
 import { useState, useEffect } from "react";
 import { Input, Button, FormControl, FormLabel, Stack } from "@chakra-ui/react";
+import { useListings } from "@/context/ListingsContext";
+import { useParams } from "next/navigation"; // Use this to get the params
 
-const EditListing = ({ params }) => {
-  const [listing, setListing] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const EditListing = () => {
+  const { listings, loading, error } = useListings();
+  const [listing, setListing] = useState(null); // Initially null
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
-  // Fetch listing data in useEffect
+  const params = useParams(); // Get the dynamic parameters from URL
+  const { id } = params; // Destructure the id from params
+
   useEffect(() => {
-    const fetchListing = async () => {
-      try {
-        const res = await fetch(`https://obash-api.vercel.app/api/listings/`, {
-          method: "GET",
-        });
-        const data = await res.json();
-
-        // Access the listings array from the first object
-        const listings = data[0]?.listings || [];
-        const foundListing = listings.find((item) => item.id === params.id);
-
-        if (foundListing) {
-          setListing(foundListing); // Update the listing state
-        } else {
-          setError("Listing not found");
-        }
-      } catch (error) {
-        setError("Failed to fetch listing.");
-        console.error("Fetch error:", error);
-      } finally {
-        setLoading(false);
+    if (listings.length > 0) {
+      const foundListing = listings.find((item) => item.id === id);
+      if (foundListing) {
+        setListing(foundListing);
       }
-    };
-
-    fetchListing();
-  }, [params.id]); // Fetch data when the component is mounted or when the id changes
+    }
+  }, [listings, id]);
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -48,12 +34,13 @@ const EditListing = ({ params }) => {
 
   // Handle submit
   const handleSubmit = async () => {
+    setLoadingSubmit(true);
+    setSubmitError(null);
     try {
       const response = await fetch(
-        `https://obash-api.vercel.app/api/listings/${params.id}`,
+        `https://obash-api.vercel.app/api/listings/${id}`,
         {
           method: "PUT",
-          mode: "no-cors",
           headers: {
             "Content-Type": "application/json",
           },
@@ -69,15 +56,19 @@ const EditListing = ({ params }) => {
       console.log("Updated data: ", updatedListing);
     } catch (error) {
       console.error("Failed to update the listing.", error);
+      setSubmitError("Failed to update the listing.");
+    } finally {
+      setLoadingSubmit(false);
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <div>Loading listings...</div>;
+  if (error) return <div>Error loading listings: {error}</div>;
+  if (!listing) return <div>Loading listing...</div>; // Handle case where listing is not loaded yet
 
   return (
     <div>
-      <h1>Edit Listing #{params.id}</h1>
+      <h1>Edit Listing #{id}</h1>
       <Stack spacing={4}>
         <FormControl>
           <FormLabel>Address</FormLabel>
@@ -129,9 +120,14 @@ const EditListing = ({ params }) => {
           />
         </FormControl>
 
-        <Button colorScheme="blue" onClick={handleSubmit}>
+        <Button
+          colorScheme="blue"
+          onClick={handleSubmit}
+          isLoading={loadingSubmit}
+        >
           Save
         </Button>
+        {submitError && <div>{submitError}</div>}
       </Stack>
     </div>
   );

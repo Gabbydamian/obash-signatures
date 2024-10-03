@@ -1,49 +1,41 @@
+"use client";
 import Nav from "../../components/Nav";
 import Listing from "./Listing";
-import baseUrl from "../../../utils/getUrl";
+import { useListings } from "@/context/ListingsContext";
+import { useRouter } from "next/navigation"; // Updated based on your preference
 
-export async function generateStaticParams() {
-  const res = await fetch(`https://obash-api.vercel.app/api/listings/`, {
-    method: "GET",
-  });
-  const data = await res.json();
+const ListingPage = ({ params }) => {
+  const { listings, loading, error } = useListings();
+  const router = useRouter();
 
-  // Assuming data[0].listings is where the listings are stored
-  const paths = data[0]?.listings?.map((listing) => ({
-    id: listing.id, // Use the id inside the listings array
-  }));
+  // Access the dynamic `id` from `params`
+  const listingId = params?.id;
 
-  return paths.map((param) => ({
-    params: param,
-  }));
-}
-
-const ListingPage = async ({ params }) => {
-  try {
-    const res = await fetch(`https://obash-api.vercel.app/api/listings/`, {
-      method: "GET",
-      mode: "no-cors",
-    });
-    const data = await res.json();
-
-    // Accessing the listings from the first object
-    const listings = data[0]?.listings || [];
-    const listing = listings.find((item) => item.id === params.id); // Find listing by ID
-
-    if (!listing) {
-      return <div>Listing not found</div>;
-    }
-
+  if (loading) {
     return (
-      <>
+      <div>
         <Nav />
-        <Listing listing={listing} />
-      </>
+      </div>
     );
-  } catch (error) {
-    console.error("Error fetching listing:", error);
-    return <div>Error loading the listing</div>;
   }
+
+  if (error) {
+    return <div>Error loading the listings: {error}</div>;
+  }
+
+  // Find the listing by the dynamic `id`
+  const listing = listings.find((item) => item.id === listingId);
+
+  if (!listing) {
+    return <div>Listing not found</div>;
+  }
+
+  return (
+    <>
+      <Nav />
+      <Listing listing={listing} />
+    </>
+  );
 };
 
 export default ListingPage;
