@@ -10,7 +10,7 @@ import {
   Link as ChakraLink,
 } from "@chakra-ui/react";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
-import baseUrl from "../../utils/getUrl";
+import baseUrl from "@/utils/getBaseUrl";
 
 const AdminListingCard = ({ item, idx }) => {
   const router = useRouter();
@@ -29,8 +29,11 @@ const AdminListingCard = ({ item, idx }) => {
   // Handle the delete action
   const handleDelete = (e) => {
     e.stopPropagation(); // Prevent the card click from triggering
-    fetch(`https://obash-api.vercel.app/api/listings/${item.id}`, {
+    fetch(`${baseUrl}/${item.id}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
     }).then(() => {
       router.refresh(); // Refresh the page after deletion
     });

@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useState, useEffect, useContext } from "react";
+import baseUrl  from "../utils/getBaseUrl";
 
 // Create a context for listings
 const ListingsContext = createContext();
@@ -12,12 +13,12 @@ export const ListingsProvider = ({ children }) => {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const response = await fetch(
-          `https://obash-express-api.onrender.com/api/listings`,
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${baseUrl}/api/listings`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
