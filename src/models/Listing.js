@@ -1,5 +1,3 @@
-// src/models/Listing.js
-
 const mongoose = require("mongoose");
 
 const listingSchema = new mongoose.Schema({
@@ -8,10 +6,10 @@ const listingSchema = new mongoose.Schema({
   price: Number,
   details: String,
   zipCode: String,
-  images: [String],
+  images: [String], // Storing image URLs
   type: String,
+  description: String, // New field for the description of the house
 });
 
-// Check if the model is already compiled
 module.exports =
   mongoose.models.Listing || mongoose.model("Listing", listingSchema);

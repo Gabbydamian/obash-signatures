@@ -29,7 +29,7 @@ const AdminListingCard = ({ item, idx }) => {
   // Handle the delete action
   const handleDelete = (e) => {
     e.stopPropagation(); // Prevent the card click from triggering
-    fetch(`${baseUrl}/${item.id}`, {
+    fetch(`${baseUrl}/api/listings/${item.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

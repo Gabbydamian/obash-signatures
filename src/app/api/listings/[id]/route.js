@@ -33,7 +33,7 @@ export async function GET(req, { params }) {
 }
 
 // DElete Listing
-export async function DELETE(req, {params}) {
+export async function DELETE(req, { params }) {
   try {
     const db = await connectToDatabase();
     const listingsCollection = db.collection("listings");
@@ -46,7 +46,9 @@ export async function DELETE(req, {params}) {
     }
 
     const listings = listingDoc.listings;
-    const listingIndex = listings.findIndex((listing) => listing.id == params.id); // Match your ID field here
+    const listingIndex = listings.findIndex(
+      (listing) => listing.id == params.id
+    ); // Match your ID field here
 
     if (listingIndex !== -1) {
       listings.splice(listingIndex, 1); // Remove the listing from the array
@@ -67,37 +69,43 @@ export async function DELETE(req, {params}) {
   }
 }
 
-
 // Update Listing
-export async function PUT(req, {params}) {
+export async function PUT(req, { params }) {
   try {
     const db = await connectToDatabase();
     const listingsCollection = db.collection("listings");
 
+    // Find the document that contains the listings array
     const listingDoc = await listingsCollection.findOne({}); // Or filter by specific criteria
 
     if (!listingDoc || !listingDoc.listings) {
       return new Response("No listings available", { status: 404 });
     }
 
+    // Get the listing to update by matching the ID
     const listings = listingDoc.listings;
-    const listingIndex = listings.findIndex((listing) => listing.id == params.id); // Match your ID field here
+    const listingIndex = listings.findIndex(
+      (listing) => listing.id == params.id
+    ); // Match your ID field here
 
     if (listingIndex !== -1) {
       const updatedData = await req.json(); // Assuming the updated data is in the request body
 
-      // Update the listing with the new data
-      listings[listingIndex] = { ...listings[listingIndex], ...updatedData };
+      // Update the listing with the new data (including images)
+      listings[listingIndex] = {
+        ...listings[listingIndex],
+        ...updatedData, // Updated data including images array
+      };
 
       // Update the document with the new listings array
       await listingsCollection.updateOne(
-      { _id: listingDoc._id },
-      { $set: { listings: listings } }
+        { _id: listingDoc._id },
+        { $set: { listings: listings } }
       );
 
       return new Response(JSON.stringify(listings[listingIndex]), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
+        status: 200,
+        headers: { "Content-Type": "application/json" },
       });
     } else {
       return new Response("Listing not found", { status: 404 });

@@ -18,7 +18,7 @@ export default function AdminListings() {
   });
 
   return (
-    <div className="container mx-auto">
+    <div className="mx-auto">
       <AdminNav />
       <AdminMain />
     </div>

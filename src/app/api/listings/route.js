@@ -1,10 +1,17 @@
-// src/app/api/listings/route.js
-
+import cloudinary from "cloudinary";
+import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/utils/dbConnect";
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function GET(request) {
   try {
-    const db = await connectToDatabase(); // Ensure you have this line correctly
+    const db = await connectToDatabase();
     const listingsCollection = db.collection("listings");
 
     if (!listingsCollection) {
@@ -13,33 +20,82 @@ export async function GET(request) {
 
     const listings = await listingsCollection.find({}).toArray();
 
-    return new Response(JSON.stringify(listings), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return NextResponse.json(listings, { status: 200 });
   } catch (error) {
     console.error("Error fetching listings:", error);
-    return new Response("Error fetching listings", { status: 500 });
+    return NextResponse.json(
+      { error: "Error fetching listings" },
+      { status: 500 }
+    );
   }
 }
 
 export async function POST(req) {
   try {
+    // Get form data from the request body
+    const {
+      address,
+      city,
+      price,
+      details,
+      zipCode,
+      type,
+      description,
+      images,
+    } = await req.json(); // Use await req.json() to parse the body
+
+    // Connect to MongoDB
     const db = await connectToDatabase();
-    const listingsCollection = db.collection("listings");
 
-    const body = await req.json(); // Get the request body
+    // Find the first document to retrieve the current listings
+    const existingDocument = await db.collection("listings").findOne({});
 
-    // Insert a new listing into the collection
-    const newListing = await listingsCollection.insertOne(body);
+    // Calculate the new listing ID
+    const newListingId =
+      existingDocument && existingDocument.listings
+        ? existingDocument.listings.length
+        : 0; // If no listings exist, set ID to 0
 
-    // Return the newly created listing
-    return new Response(JSON.stringify(newListing.ops[0]), {
-      status: 201,
-      headers: { "Content-Type": "application/json" },
-    });
+    // Create the new listing object with the calculated ID
+    const newListing = {
+      id: newListingId.toString(),
+      address,
+      city,
+      price,
+      details,
+      zipCode,
+      type,
+      description,
+      images, // This now contains Cloudinary URLs
+    };
+
+    // Update the first document by pushing the new listing into the listings array
+    const result = await db.collection("listings").updateOne(
+      {}, // Find the first document
+      {
+        $push: {
+          listings: newListing,
+        },
+      }
+    );
+
+    // Check if a document was modified
+    if (result.modifiedCount === 0) {
+      return NextResponse.json(
+        { error: "No document found to update" },
+        { status: 404 }
+      ); // Handle case where no document was modified
+    }
+
+    return NextResponse.json(
+      { message: "Listing added successfully", id: newListingId },
+      { status: 201 }
+    ); // Include the new ID in the response
   } catch (error) {
-    console.error("Error creating listing:", error);
-    return new Response("Error creating listing", { status: 500 });
+    console.error(error);
+    return NextResponse.json(
+      { error: "Failed to create listing" },
+      { status: 500 }
+    ); // Use NextResponse
   }
 }

@@ -1,15 +1,20 @@
 "use client";
 import { useListings } from "@/context/ListingsContext";
 import AdminListingCard from "./AdminListingCard";
-import { Spinner, Link as ChakraLink } from "@chakra-ui/react";
-
+import { Spinner, Link as ChakraLink, Button } from "@chakra-ui/react";
+import Link from "next/link"; // Import Next.js Link
+import {
+  PlusCircleIcon,
+  PlusIcon,
+  DocumentPlusIcon,
+} from "@heroicons/react/24/outline";
 
 const AdminMain = () => {
   const { listings, loading, error } = useListings();
   const data = listings;
 
   return (
-    <div className="flex flex-col py-16 items-center md:justify-center gap-4 md:flex-row md:flex-wrap md:gap-4">
+    <div className="relative container mx-auto flex flex-col py-16 items-center md:justify-center gap-4 md:flex-row md:flex-wrap md:gap-4">
       {data.length > 0 ? (
         data.map((item, idx) => (
           <AdminListingCard key={idx} item={item} idx={idx} />
@@ -38,6 +43,17 @@ const AdminMain = () => {
           <AdminListingCard key={idx} item={item} idx={idx} />
         ))
       )}
+
+      {/* Create New Listing Button - Fixed at bottom-left */}
+      <Link href="/admin/listings/create">
+        <Button
+          colorScheme="teal"
+          size="lg"
+          className="fixed bottom-12 right-12"
+        >
+          <DocumentPlusIcon className="size-6" />
+        </Button>
+      </Link>
     </div>
   );
 };

@@ -18,6 +18,11 @@ export default function RootLayout({ children }) {
           type="image/x-icon"
           sizes="16x16"
         ></link>
+        <script
+          src="https://widget.cloudinary.com/v2.0/global/all.js"
+          type="text/javascript"
+          async
+        ></script>
       </head>
       <body
         className={`${fonts.montserrat.variable} ${fonts.barlowCondensed.variable}`}
