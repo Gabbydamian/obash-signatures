@@ -11,6 +11,7 @@ import {
   FormLabel,
   Button,
 } from "@chakra-ui/react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 const ContactFormInput = ({ id, label, type }) => (
   <FormControl mt={4}>
@@ -151,24 +152,24 @@ const Listing = ({ listing }) => {
         />
 
         {/* Left and Right Arrows */}
-        <button
+        <Button
           onClick={prevImage}
-          className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white bg-black p-2 rounded-full opacity-75 hover:opacity-100 transition-opacity"
+          className="absolute left-0 top-1/2 h-full transform -translate-y-1/2 text-white bg-black p-2 px-3  opacity-75 hover:opacity-90 transition-opacity rounded-none"
         >
-          &#9664;
-        </button>
-        <button
+          <ChevronLeftIcon className="size-6" />
+        </Button>
+        <Button
           onClick={nextImage}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white bg-black p-2 rounded-full opacity-75 hover:opacity-100 transition-opacity"
+          className="absolute right-0 top-1/2 h-full transform -translate-y-1/2 text-white bg-black p-2 px-3  opacity-75 hover:opacity-90 transition-opacity rounded-none"
         >
-          &#9654;
-        </button>
+          <ChevronRightIcon className="size-6" />
+        </Button>
       </div>
 
       <div className="container mx-auto py-4 lg:px-16 px-4 mb-12">
         <Stack direction="column" mt={3} spacing={3}>
           <Text as={"h2"} className="text-3xl font-bold uppercase">
-            {listing.address}
+            {listing.type}, {listing.address}
           </Text>
           <Text as={"h3"} className="text-xl font-semibold text-gray-900">
             {`${listing.address}, ${listing.city}, ${listing.city

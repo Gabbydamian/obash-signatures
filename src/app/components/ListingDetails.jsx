@@ -2,6 +2,7 @@
 "use client";
 import React, { useState } from "react";
 import { Image, Stack, Text, Button } from "@chakra-ui/react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 const ListingDetails = ({ listing, params }) => {
   const { id } = params;
@@ -35,18 +36,18 @@ const ListingDetails = ({ listing, params }) => {
         />
 
         {/* Left and Right Arrows */}
-        <button
+        <Button
           onClick={prevImage}
-          className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white bg-black p-2 rounded-full opacity-75 hover:opacity-100 transition-opacity"
+          className="absolute left-0 top-1/2 h-full transform -translate-y-1/2 text-white bg-black p-2 px-3  opacity-75 hover:opacity-90 hover:bg-black transition-opacity rounded-none"
         >
-          &#9664;
-        </button>
-        <button
+          <ChevronLeftIcon className="size-6" />
+        </Button>
+        <Button
           onClick={nextImage}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white bg-black p-2 rounded-full opacity-75 hover:opacity-100 transition-opacity"
+          className="absolute right-0 top-1/2 h-full transform -translate-y-1/2 text-white bg-black p-2 px-3  opacity-75 hover:bg-black hover:opacity-90 transition-opacity rounded-none"
         >
-          &#9654;
-        </button>
+          <ChevronRightIcon className="size-6" />
+        </Button>
       </div>
 
       <div className="container mx-auto py-4 lg:px-16 px-4 mb-12">
