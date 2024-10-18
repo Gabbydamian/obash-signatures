@@ -42,7 +42,7 @@ const AdminListingCard = ({ item, idx }) => {
   return (
     <Card
       maxW="200px"
-      className="min-h-[290px] shadow-none border-gray-200 border hover:border-blue-300 transition-all cursor-pointer"
+      className="min-h-[320px] shadow-none border-gray-200 border hover:border-blue-300 transition-all cursor-pointer"
       onClick={handleOpenListing} // Navigate to the listing details page
     >
       <CardBody className="flex flex-col items-center justify-between">

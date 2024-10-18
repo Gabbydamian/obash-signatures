@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Image } from "@chakra-ui/react"; // Ensure you use Chakra Image if needed
+import { Image } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { useListings } from "@/context/ListingsContext";
 import Link from "next/link"; // Use Next.js Link for client-side navigation
@@ -8,7 +8,16 @@ import Link from "next/link"; // Use Next.js Link for client-side navigation
 const Carousel = () => {
   const { listings, loading, error } = useListings();
 
-  const data = listings.slice(0, 3);
+  // Function to shuffle an array
+  const shuffleArray = (array) => {
+    return array
+      .map((item) => ({ item, sort: Math.random() })) // Map each item to an object with a random sort key
+      .sort((a, b) => a.sort - b.sort) // Sort by the random key
+      .map(({ item }) => item); // Extract the items back out of the sorted array
+  };
+
+  // Get random 3 items
+  const data = shuffleArray(listings).slice(0, 3);
 
   const [currentListing, setCurrentListing] = useState(0);
 
@@ -42,7 +51,7 @@ const Carousel = () => {
             {data[currentListing]?.details}
           </p>
           <h4 className="text-2xl mt-1 md:text-3xl md:mt-4">
-            {data[currentListing]?.price}
+            ₦ {data[currentListing]?.price}
           </h4>
         </div>
       </Link>

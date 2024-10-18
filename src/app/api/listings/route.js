@@ -1,4 +1,5 @@
 import cloudinary from "cloudinary";
+import { v4 as uuidv4 } from "uuid";
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/utils/dbConnect";
 
@@ -53,12 +54,12 @@ export async function POST(req) {
     // Calculate the new listing ID
     const newListingId =
       existingDocument && existingDocument.listings
-        ? existingDocument.listings.length
-        : 0; // If no listings exist, set ID to 0
+        ? uuidv4().toString()
+        : uuidv4().toString(); // If no listings exist, set ID to 0
 
     // Create the new listing object with the calculated ID
     const newListing = {
-      id: newListingId.toString(),
+      id: newListingId,
       address,
       city,
       price,
