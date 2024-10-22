@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useListings } from "@/context/ListingsContext";
 import ListingForm from "@/app/components/ListingForm";
 import baseUrl from "@/utils/getBaseUrl";
+import { Spinner } from "@chakra-ui/react";
 
 const EditListing = () => {
   const { listings, loading } = useListings();
@@ -30,7 +31,12 @@ const EditListing = () => {
     });
   };
 
-  if (loading || !initialData) return <div>Loading...</div>;
+  if (loading || !initialData)
+    return (
+      <div className="grid place-items-center h-full my-auto">
+        <Spinner size="xl" thickness="4px" />
+      </div>
+    );
 
   return (
     <ListingForm

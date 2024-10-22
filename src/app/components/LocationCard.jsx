@@ -6,7 +6,7 @@ const LocationCard = ({ href, imgSrc, imgAlt, title }) => {
   return (
     <Link
       href={href}
-      className="filter grayscale-[0.5] hover:no-underline hover:scale-[.99] border rounded-md border-gray-200 hover:filter-none transition-all duration-300 ease-in-out"
+      className="filter-none md:filter md:grayscale-[0.5] hover:no-underline hover:scale-[.99] border rounded-md border-gray-200 hover:filter-none transition-all duration-300 ease-in-out"
     >
       <Card maxW="xs">
         <CardBody>

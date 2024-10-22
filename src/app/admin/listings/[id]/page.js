@@ -3,6 +3,7 @@
 import ListingDetails from "../../../components/ListingDetails";
 import { useListings } from "@/context/ListingsContext";
 import { useRouter } from "next/navigation";
+import { Spinner } from "@chakra-ui/react";
 
 const AdminListingPage = ({ params }) => {
   const { listings, loading, error } = useListings();
@@ -11,7 +12,11 @@ const AdminListingPage = ({ params }) => {
   const listingId = params?.id;
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="grid place-items-center h-full my-auto">
+        <Spinner size="xl" thickness="4px" />
+      </div>
+    );
   }
 
   if (error) {

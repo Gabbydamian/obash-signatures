@@ -27,14 +27,14 @@ const Footer = () => {
         <div className="flex flex-col items-center gap-2 w-full">
           <Link href="/">
             <Image
-              src="/logo.svg"
+              src="/logo-black.svg"
               alt="logo"
-              width={200}
+              width={180}
               className="transition-all duration-200 ease-in-out"
             />
           </Link>
         </div>
-        <h2 className="capitalize text-2xl font-semibold text-center mt-8">
+        <h2 className="capitalize text-2xl font-semibold text-center mt-2">
           Get in touch
         </h2>
         <div className="contact flex flex-col md:flex-row md:items-center gap-4 uppercase mt-2">

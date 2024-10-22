@@ -9,7 +9,6 @@ import {
   VStack,
   HStack,
   IconButton,
-  Heading,
   Icon,
   Text,
 } from "@chakra-ui/react";
@@ -19,8 +18,9 @@ import {
   PhoneIcon,
   MapIcon,
 } from "@heroicons/react/24/outline";
-import { fonts } from "../font";
+import { useState } from "react";
 
+// ContactDetail component for displaying contact info (phone, email, address)
 const ContactDetail = ({ icon, label, value, link }) => (
   <HStack alignItems="start" gap={2}>
     <Icon as={icon} w={8} h={8} />
@@ -37,7 +37,8 @@ const ContactDetail = ({ icon, label, value, link }) => (
   </HStack>
 );
 
-const ContactFormInput = ({ id, label, type }) => (
+// Reusable ContactFormInput component
+const ContactFormInput = ({ id, label, type, value, onChange }) => (
   <FormControl mt={4}>
     <FormLabel htmlFor={id}>{label}</FormLabel>
     <Input
@@ -47,12 +48,50 @@ const ContactFormInput = ({ id, label, type }) => (
       id={id}
       type={type}
       className="w-full text-white"
+      value={value}
+      onChange={onChange}
     />
   </FormControl>
 );
 
 const ContactOverlay = ({ isOpen, onClose }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [status, setStatus] = useState("");
+
   if (!isOpen) return null;
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [id]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("/api/email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus("Message sent successfully!");
+      } else {
+        setStatus("Failed to send message.");
+      }
+    } catch (error) {
+      setStatus("An error occurred while sending the message.");
+      console.error(error);
+    }
+  };
 
   return (
     <Box className="fixed inset-0 z-50 flex justify-center items-center bg-black">
@@ -65,11 +104,7 @@ const ContactOverlay = ({ isOpen, onClose }) => {
           alignItems="start"
           spacing={8}
         >
-          <Text
-            as="h2"
-            size="lg"
-            className={`${fonts.barlowCondensed.variable} text-5xl font-[500]`}
-          >
+          <Text as="h2" size="lg" className="text-5xl font-[500]">
             OBASH SIGNATURES
           </Text>
           <ContactDetail
@@ -91,10 +126,28 @@ const ContactOverlay = ({ isOpen, onClose }) => {
           />
         </VStack>
         <Box className="w-full lg:w-1/2" p={8}>
-          <form>
-            <ContactFormInput id="name" label="Name" type="text" />
-            <ContactFormInput id="email" label="Email" type="email" />
-            <ContactFormInput id="phone" label="Phone" type="tel" />
+          <form onSubmit={handleSubmit}>
+            <ContactFormInput
+              id="name"
+              label="Name"
+              type="text"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <ContactFormInput
+              id="email"
+              label="Email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <ContactFormInput
+              id="phone"
+              label="Phone"
+              type="tel"
+              value={formData.phone}
+              onChange={handleChange}
+            />
             <FormControl mt={4}>
               <FormLabel htmlFor="message">Message</FormLabel>
               <Textarea
@@ -102,6 +155,8 @@ const ContactOverlay = ({ isOpen, onClose }) => {
                 variant="flushed"
                 id="message"
                 className="w-full text-white"
+                value={formData.message}
+                onChange={handleChange}
               />
             </FormControl>
             <Button
@@ -115,6 +170,7 @@ const ContactOverlay = ({ isOpen, onClose }) => {
               Submit
             </Button>
           </form>
+          {status && <Text mt={4}>{status}</Text>}
         </Box>
       </Box>
       <IconButton
