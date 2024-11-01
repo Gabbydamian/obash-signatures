@@ -30,7 +30,7 @@ const Nav = () => {
 
   return (
     <>
-      <nav className="sticky top-0 z-10 py-8 px-6 md:px-12 xl:px-16 min-h-24 backdrop-blur-sm shadow-sm uppercase font-[500]">
+      <nav className="sticky top-0 z-10 py-8 px-6 md:px-8 xl:px-16 min-h-24 backdrop-blur-sm shadow-sm uppercase font-[500]">
         <div className="container px-4 md:px-0 mx-auto flex items-center justify-between">
           <Link href="/">
             <Image

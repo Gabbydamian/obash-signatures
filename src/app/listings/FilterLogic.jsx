@@ -26,25 +26,27 @@ const FilterLogic = ({
   return (
     <div className="flex flex-col md:flex-row gap-4 mb-8">
       {/* Filter by City */}
-      <Select
-        placeholder="Filter by City"
-        onChange={(e) => setFilterCity(e.target.value)}
-        value={filterCity}
-        maxW="200px"
-      >
-        {cities.map((city) => (
-          <option key={city.id} value={city}>
-            {city}
-          </option>
-        ))}
-      </Select>
+      <div className="w-full lg:max-w-[200px]">
+        <Select
+          placeholder="Filter by City"
+          onChange={(e) => setFilterCity(e.target.value)}
+          value={filterCity}
+          // maxW="200px"
+        >
+          {cities.map((city) => (
+            <option key={city.id} value={city}>
+              {city}
+            </option>
+          ))}
+        </Select>
+      </div>
 
       {/* Filter by Property Type */}
       <Menu closeOnSelect={false}>
         <MenuButton
           className="flex items-center w-80 bg-transparent border border-gray-300 rounded-md p-2 font-[400]"
           as={Button}
-          rightIcon={<ChevronDownIcon className="size-4" />}
+          rightIcon={<ChevronDownIcon className="size-4 font-bold" />}
         >
           Filter by Property Type
         </MenuButton>
@@ -65,28 +67,30 @@ const FilterLogic = ({
       </Menu>
 
       {/* Filter by Price Range */}
-      <Select
-        placeholder="Filter by Price"
-        onChange={(e) => setPriceRange(e.target.value)}
-        value={priceRange}
-        maxW="200px"
-      >
-        <option value="below-100">Below ₦100M</option>
-        <option value="100-150">₦100M - ₦150M</option>
-        <option value="150-200">₦150M - ₦200M</option>
-        <option value="above-200">Above ₦200M</option>
-      </Select>
+      <div className="w-full lg:max-w-[200px]">
+        <Select
+          placeholder="Filter by Price"
+          onChange={(e) => setPriceRange(e.target.value)}
+          value={priceRange}
+        >
+          <option value="below-100">Below ₦100M</option>
+          <option value="100-150">₦100M - ₦150M</option>
+          <option value="150-200">₦150M - ₦200M</option>
+          <option value="above-200">Above ₦200M</option>
+        </Select>
+      </div>
 
       {/* Sort by Price */}
-      <Select
-        placeholder="Sort by Price"
-        onChange={(e) => setSortOrder(e.target.value)}
-        value={sortOrder}
-        maxW="200px"
-      >
-        <option value="asc">Price: Low to High</option>
-        <option value="desc">Price: High to Low</option>
-      </Select>
+      <div className="w-full lg:max-w-[200px]">
+        <Select
+          placeholder="Sort by Price"
+          onChange={(e) => setSortOrder(e.target.value)}
+          value={sortOrder}
+        >
+          <option value="asc">Price: Low to High</option>
+          <option value="desc">Price: High to Low</option>
+        </Select>
+      </div>
     </div>
   );
 };
