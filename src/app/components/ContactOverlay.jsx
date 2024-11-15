@@ -31,7 +31,7 @@ const ContactDetail = ({ icon, label, value, link }) => (
           {value}
         </Link>
       ) : (
-        <Text>{value}</Text>
+        <Text className="uppercase">{value}</Text>
       )}
     </VStack>
   </HStack>
@@ -122,7 +122,7 @@ const ContactOverlay = ({ isOpen, onClose }) => {
           <ContactDetail
             icon={MapIcon}
             label="Address"
-            value="1511 CHAPALA STREET SANTA BARBARA CA 93101"
+            value="1520 Elmond Street, Manchester, UK"
           />
         </VStack>
         <Box className="w-full lg:w-1/2" p={8}>

@@ -53,7 +53,7 @@ const Footer = () => {
           <ContactInfo
             icon={MapIcon}
             label="Address"
-            content="1511 CHAPALA STREET SANTA BARBARA CA 93101"
+            content="1520 Elmond Street, Manchester, UK"
           />
         </div>
         <div className="w-full h-[1px] bg-black mt-8"></div>

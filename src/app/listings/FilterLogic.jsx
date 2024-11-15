@@ -44,11 +44,11 @@ const FilterLogic = ({
       {/* Filter by Property Type */}
       <Menu closeOnSelect={false}>
         <MenuButton
-          className="flex items-center w-80 bg-transparent border border-gray-300 rounded-md p-2 font-[400]"
+          className="flex items-center text-inherit w-80 bg-transparent border text-left border-gray-300 rounded-md p-3 font-[400]"
           as={Button}
-          rightIcon={<ChevronDownIcon className="size-4 font-bold" />}
+          rightIcon={<ChevronDownIcon className="size-3 stroke-black stroke-[3px]" />}
         >
-          Filter by Property Type
+          Property Type
         </MenuButton>
         <MenuList>
           <CheckboxGroup
